@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 
@@ -39,8 +38,6 @@ import { SecurityPage } from './pages/security/SecurityPage';
 
 // Additional Pages
 import { Features } from './pages/Features';
-import { Settings } from './pages/Settings';
-import { Help } from './pages/Help';
 
 function App() {
   return (
@@ -127,8 +124,6 @@ function App() {
           <Route path="/features" element={<DashboardLayout />}>
             <Route index element={<Features />} />
           </Route>
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/help" element={<Help />} />
           
           {/* Redirect root to login */}
           <Route path="/" element={<Navigate to="/login" replace />} />

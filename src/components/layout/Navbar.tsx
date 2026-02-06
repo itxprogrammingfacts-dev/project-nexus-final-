@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Menu, X, Bell, MessageCircle, User, LogOut, Building2, CircleDollarSign } from 'lucide-react';
+import { Menu, X, Bell, MessageCircle, User, LogOut, Building2, CircleDollarSign, Calendar, Video, FileText, CreditCard, Shield, Settings, HelpCircle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { Avatar } from '../ui/Avatar';
 import { Button } from '../ui/Button';
@@ -172,6 +172,72 @@ export const Navbar: React.FC = () => {
                     <LogOut size={18} className="mr-3" />
                     Logout
                   </button>
+                  
+                  {/* Features Section */}
+                  <div className="border-t border-gray-200 pt-3 mt-3">
+                    <p className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Features</p>
+                    <Link
+                      to="/calendar"
+                      className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <Calendar size={18} className="mr-3" />
+                      Calendar & Meetings
+                    </Link>
+                    <Link
+                      to="/video"
+                      className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <Video size={18} className="mr-3" />
+                      Video Calls
+                    </Link>
+                    <Link
+                      to="/document-chamber"
+                      className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <FileText size={18} className="mr-3" />
+                      Document Chamber
+                    </Link>
+                    <Link
+                      to="/payment"
+                      className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <CreditCard size={18} className="mr-3" />
+                      Payment & Wallet
+                    </Link>
+                    <Link
+                      to="/security"
+                      className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <Shield size={18} className="mr-3" />
+                      Security
+                    </Link>
+                  </div>
+                  
+                  {/* Settings Section */}
+                  <div className="border-t border-gray-200 pt-3 mt-3">
+                    <p className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Settings</p>
+                    <Link
+                      to="/settings"
+                      className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <Settings size={18} className="mr-3" />
+                      Settings
+                    </Link>
+                    <Link
+                      to="/help"
+                      className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <HelpCircle size={18} className="mr-3" />
+                      Help & Support
+                    </Link>
+                  </div>
                 </div>
               </>
             ) : (

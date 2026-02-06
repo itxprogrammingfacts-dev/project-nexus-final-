@@ -79,11 +79,14 @@ export const EntrepreneurDashboard: React.FC = () => {
 
           {/* Mobile menu toggle */}
           <button
-            className="md:hidden p-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
+            className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileMenuOpen ? (
+              <X size={24} className="text-gray-700" />
+            ) : (
+              <Menu size={24} className="text-gray-700" />
+            )}
           </button>
         </div>
       </div>
