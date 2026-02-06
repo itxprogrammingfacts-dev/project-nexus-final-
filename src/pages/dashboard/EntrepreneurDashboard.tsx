@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Users, Bell, Calendar, TrendingUp, AlertCircle, PlusCircle } from 'lucide-react';
+import { Users, Bell, Calendar, TrendingUp, AlertCircle, PlusCircle, Menu, X, Settings, HelpCircle, Zap } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { Card, CardBody, CardHeader } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
@@ -13,13 +13,11 @@ import { getRequestsForEntrepreneur } from '../../data/collaborationRequests';
 import { investors } from '../../data/users';
 import { mockMeetings } from '../../data/meetings';
 
-
-
-
 export const EntrepreneurDashboard: React.FC = () => {
   const { user } = useAuth();
   const [collaborationRequests, setCollaborationRequests] = useState<CollaborationRequest[]>([]);
   const [recommendedInvestors, setRecommendedInvestors] = useState(investors.slice(0, 3));
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   useEffect(() => {
     if (user) {
@@ -45,22 +43,75 @@ export const EntrepreneurDashboard: React.FC = () => {
   const pendingRequests = collaborationRequests.filter(req => req.status === 'pending');
   
   return (
-    
     <div className="space-y-6 animate-fade-in">
-      <div className="flex justify-between items-center">
-        <div>
+      <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+        <div className="flex-1">
           <h1 className="text-2xl font-bold text-gray-900">Welcome, {user.name}</h1>
           <p className="text-gray-600">Here's what's happening with your startup today</p>
         </div>
         
-        <Link to="/investors">
-          <Button
-            leftIcon={<PlusCircle size={18} />}
+        <div className="flex gap-2 items-center">
+          <div className="hidden md:block">
+            <Link to="/investors">
+              <Button leftIcon={<PlusCircle size={18} />}>
+                Find Investors
+              </Button>
+            </Link>
+          </div>
+
+          {/* Mobile menu toggle */}
+          <button
+            className="md:hidden p-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
           >
-            Find Investors
-          </Button>
-        </Link>
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile menu */}
+      {mobileMenuOpen && (
+        <Card className="md:hidden bg-gray-50">
+          <CardBody className="space-y-3">
+            <Link to="/investors" onClick={() => setMobileMenuOpen(false)}>
+              <Button fullWidth leftIcon={<PlusCircle size={18} />}>
+                Find Investors
+              </Button>
+            </Link>
+            
+            <Link to="/features" onClick={() => setMobileMenuOpen(false)}>
+              <Button 
+                fullWidth 
+                variant="outline" 
+                leftIcon={<Zap size={18} />}
+              >
+                Features
+              </Button>
+            </Link>
+            
+            <Link to="/settings" onClick={() => setMobileMenuOpen(false)}>
+              <Button 
+                fullWidth 
+                variant="outline" 
+                leftIcon={<Settings size={18} />}
+              >
+                Settings
+              </Button>
+            </Link>
+            
+            <Link to="/help" onClick={() => setMobileMenuOpen(false)}>
+              <Button 
+                fullWidth 
+                variant="outline" 
+                leftIcon={<HelpCircle size={18} />}
+              >
+                Need Assistance
+              </Button>
+            </Link>
+          </CardBody>
+        </Card>
+      )}
       
       {/* Summary cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

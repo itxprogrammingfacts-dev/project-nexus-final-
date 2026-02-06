@@ -73,7 +73,7 @@ export const Sidebar: React.FC = () => {
   ];
   
   return (
-    <div className="w-64 bg-white h-full border-r border-gray-200 hidden md:block">
+    <div className="w-64 bg-white h-full border-r border-gray-200 block md:block">
       <div className="h-full flex flex-col">
         <div className="flex-1 py-4 overflow-y-auto">
           <div className="px-3 space-y-1">

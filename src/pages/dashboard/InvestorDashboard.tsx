@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Users, PieChart, Filter, Search, PlusCircle } from 'lucide-react';
+import { Users, PieChart, Filter, Search, PlusCircle, Menu, X, Settings, HelpCircle, Zap } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { Card, CardBody, CardHeader } from '../../components/ui/Card';
 import { Input } from '../../components/ui/Input';
@@ -17,6 +17,7 @@ export const InvestorDashboard: React.FC = () => {
   const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   if (!user) return null;
   
@@ -55,19 +56,73 @@ export const InvestorDashboard: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-        <div>
+        <div className="flex-1">
           <h1 className="text-2xl font-bold text-gray-900">Discover Startups</h1>
           <p className="text-gray-600">Find and connect with promising entrepreneurs</p>
         </div>
         
-        <Link to="/entrepreneurs">
-          <Button
-            leftIcon={<PlusCircle size={18} />}
+        <div className="flex gap-2 items-center">
+          <div className="hidden md:block">
+            <Link to="/entrepreneurs">
+              <Button leftIcon={<PlusCircle size={18} />}>
+                View All Startups
+              </Button>
+            </Link>
+          </div>
+
+          {/* Mobile menu toggle */}
+          <button
+            className="md:hidden p-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
           >
-            View All Startups
-          </Button>
-        </Link>
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile menu */}
+      {mobileMenuOpen && (
+        <Card className="md:hidden bg-gray-50">
+          <CardBody className="space-y-3">
+            <Link to="/entrepreneurs" onClick={() => setMobileMenuOpen(false)}>
+              <Button fullWidth leftIcon={<PlusCircle size={18} />}>
+                View All Startups
+              </Button>
+            </Link>
+            
+            <Link to="/features" onClick={() => setMobileMenuOpen(false)}>
+              <Button 
+                fullWidth 
+                variant="outline" 
+                leftIcon={<Zap size={18} />}
+              >
+                Features
+              </Button>
+            </Link>
+            
+            <Link to="/settings" onClick={() => setMobileMenuOpen(false)}>
+              <Button 
+                fullWidth 
+                variant="outline" 
+                leftIcon={<Settings size={18} />}
+              >
+                Settings
+              </Button>
+            </Link>
+            
+            <Link to="/help" onClick={() => setMobileMenuOpen(false)}>
+              <Button 
+                fullWidth 
+                variant="outline" 
+                leftIcon={<HelpCircle size={18} />}
+              >
+                Need Assistance
+              </Button>
+            </Link>
+          </CardBody>
+        </Card>
+      )}
       
       {/* Confirmed Meetings */}
       <ConfirmedMeetingsCard meetings={mockMeetings} />

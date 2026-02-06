@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Menu, X, Bell, MessageCircle, User, LogOut, Building2, CircleDollarSign } from 'lucide-react';
+import { Menu, X, Bell, MessageCircle, User, LogOut, Building2, CircleDollarSign, Settings, HelpCircle, Zap } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { Avatar } from '../ui/Avatar';
 import { Button } from '../ui/Button';
@@ -49,6 +49,39 @@ export const Navbar: React.FC = () => {
       icon: <User size={18} />,
       text: 'Profile',
       path: profileRoute,
+    },
+    {
+      icon: <Zap size={18} />,
+      text: 'Features',
+      path: '/features',
+    },
+    {
+      icon: <Settings size={18} />,
+      text: 'Settings',
+      path: '/settings',
+    },
+    {
+      icon: <HelpCircle size={18} />,
+      text: 'Need Assistance',
+      path: '/help',
+    }
+  ];
+
+  const publicNavLinks = [
+    {
+      icon: <Zap size={18} />,
+      text: 'Features',
+      path: '/features',
+    },
+    {
+      icon: <Settings size={18} />,
+      text: 'Settings',
+      path: '/settings',
+    },
+    {
+      icon: <HelpCircle size={18} />,
+      text: 'Need Assistance',
+      path: '/help',
     }
   ];
   
@@ -104,6 +137,16 @@ export const Navbar: React.FC = () => {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
+                {publicNavLinks.map((link, index) => (
+                  <Link
+                    key={index}
+                    to={link.path}
+                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
+                  >
+                    <span className="mr-2">{link.icon}</span>
+                    {link.text}
+                  </Link>
+                ))}
                 <Link to="/login">
                   <Button variant="outline">Log in</Button>
                 </Link>
@@ -132,7 +175,7 @@ export const Navbar: React.FC = () => {
       
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-b border-gray-200 animate-fade-in">
+        <div className="md:hidden bg-white border-b border-gray-200 animate-fade-in max-h-96 overflow-y-auto">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {user ? (
               <>
@@ -175,22 +218,37 @@ export const Navbar: React.FC = () => {
                 </div>
               </>
             ) : (
-              <div className="flex flex-col space-y-2 px-3 py-2">
-                <Link 
-                  to="/login" 
-                  className="w-full"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <Button variant="outline" fullWidth>Log in</Button>
-                </Link>
-                <Link 
-                  to="/register" 
-                  className="w-full"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <Button fullWidth>Sign up</Button>
-                </Link>
-              </div>
+              <>
+                <div className="border-t border-gray-200 pt-2">
+                  {publicNavLinks.map((link, index) => (
+                    <Link
+                      key={index}
+                      to={link.path}
+                      className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <span className="mr-3">{link.icon}</span>
+                      {link.text}
+                    </Link>
+                  ))}
+                </div>
+                <div className="flex flex-col space-y-2 px-3 py-2">
+                  <Link
+                    to="/login"
+                    className="w-full"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <Button variant="outline" fullWidth>Log in</Button>
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="w-full"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <Button fullWidth>Sign up</Button>
+                  </Link>
+                </div>
+              </>
             )}
           </div>
         </div>
